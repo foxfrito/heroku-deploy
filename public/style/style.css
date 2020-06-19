@@ -1,0 +1,52 @@
+:root {
+    --default-poster-size: 180px;
+}
+
+body{
+    background-color: black;
+}
+
+#container {
+    max-width: 960px;
+    margin-top: 5%!important;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    justify-content: space-evenly;
+    grid-gap: 40px 20px;
+    margin: auto;
+    padding: 10px 10px 20px 10px;
+}
+
+.poster {
+    border: 1px solid #b7d7e8;
+    margin: auto;
+}
+
+#outter {
+    width: 202px;
+}
+
+img {
+    width: 200px;
+    height: 280px;
+    --border-radius: 5px 5px 5px 5px;
+}
+
+.poster:hover {
+    border: none;
+}
+
+img:hover {
+    box-shadow: 0 0 15px 5px #b7d7e8;
+    -transform: scaleY(1.03);
+}
+
+#add-series-btn {
+    position: relative;
+    left: 90%;
+}
+
+/* MODAL */
+.episodes-modal {
+    max-width: 1100px !important;
+}
