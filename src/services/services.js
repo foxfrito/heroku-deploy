@@ -16,7 +16,7 @@ export const addSeries = async (title) => {
         body: JSON.stringify( { title } )
     };
 
-    const response = await fetch(`${BACKEND_URL}/users/${userId}/series`, params);
+    await fetch(`${BACKEND_URL}/users/${userId}/series`, params);
 };
 
 export const fetchSeries = async () => {
@@ -71,7 +71,6 @@ export const fetchEpisodes = async (title, page) => {
 }
 
 export const sendToSeedbox = async (filename, link) => {
-
     const params = {
         method: 'POST',
         headers: {

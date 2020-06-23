@@ -1,16 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Modal, Table } from 'react-bootstrap'
 import moment from 'moment'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShare, faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 import EpisodesPagination from './EpisodesPagination';
 import { sendToSeedbox } from './services/services'
 
-export default function EpisodesModal(props) {
-    const { episodes, show, onHide, getEpisodes }  =  props;
+import './EpisodeModal.css'
 
-    useEffect(() => {
-        getEpisodes();
-    }, []);
+export default function EpisodesModal(props) {
+    const { episodes, show, onHide }  =  props;
+    const spinnerRefs = useRef([]);
+    const arrowRefs = useRef([]);
+
+    const send = async ({title, link}, index) => {
+        const spinner = spinnerRefs.current[index];
+        const arrow = arrowRefs.current[index];
+        
+        spinner.hidden = false;
+        arrow.hidden = true;
+
+        await sendToSeedbox(title, link);
+
+        spinner.hidden = true;
+        arrow.hidden = false;
+    }
 
     return (
         <Modal
@@ -34,7 +49,7 @@ export default function EpisodesModal(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    { episodes.length > 0 && episodes.map(e => {
+                    { episodes.length > 0 && episodes.map((e, index) => {
                         return (
                             <tr key={e.link}>
                                 <td>{e.title}</td>
@@ -42,7 +57,14 @@ export default function EpisodesModal(props) {
                                 <td>{e.resolution}</td>
                                 <td>{e.description}</td>
                                 <td>{moment(e.pub_date).format('DD/MM/YYYY')}</td>
-                                <td><button onClick={() => sendToSeedbox(e.title, e.link)}>Send</button></td>
+                                <td>
+                                    <span className="spinner" ref={e => (spinnerRefs.current[index] = e)} hidden >
+                                        <FontAwesomeIcon icon={faSpinner} spin/>
+                                    </span>
+                                    <span className="icon" ref={e => (arrowRefs.current[index] = e)} onClick={() => send(e, index)}>
+                                        <FontAwesomeIcon icon={faShare} />
+                                    </span>
+                                </td>
                             </tr>
                         )       
                     })}

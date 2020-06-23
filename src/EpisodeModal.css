@@ -1,0 +1,8 @@
+.icon:hover {
+    color: green;
+    cursor: pointer;
+}
+
+.spinner {
+    color: lightgrey;
+}
