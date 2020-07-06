@@ -51,7 +51,7 @@ export default function EpisodesModal(props) {
                 <tbody>
                     { episodes.length > 0 && episodes.map((e, index) => {
                         return (
-                            <tr key={e.link}>
+                            <tr key={e.link} style={{backgroundColor: (e.resolution === '1080p') ? `#fcfced` : ``}}>
                                 <td>{e.title}</td>
                                 <td>{e.episode}</td>
                                 <td>{e.resolution}</td>
